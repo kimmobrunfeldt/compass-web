@@ -5,6 +5,7 @@
   "description": "",
   "main": "",
   "dependencies": {
+    "progressbar.js": "^0.8.1"
   },
   "devDependencies": {
     "autoprefixer": "^5.1.0",

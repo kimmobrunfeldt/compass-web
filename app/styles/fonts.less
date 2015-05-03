@@ -3,6 +3,18 @@ Font sizes from type-scale.com
 Scale: 1.414, Augmented Fourth
 */
 
+@font-face {
+  font-family: 'titillium-bold';
+  src: url('fonts/titilliumweb-bold-webfont.eot');
+  src: url('fonts/titilliumweb-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/titilliumweb-bold-webfont.woff2') format('woff2'),
+       url('fonts/titilliumweb-bold-webfont.woff') format('woff'),
+       url('fonts/titilliumweb-bold-webfont.ttf') format('truetype'),
+       url('fonts/titilliumweb-bold-webfont.svg#titillium_webbold') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
 @font-size-xxx-large: 3.998rem;
 @font-size-xx-large: 2.827rem;
 @font-size-x-large: 1.999rem;
@@ -13,7 +25,7 @@ Scale: 1.414, Augmented Fourth
 /* Setup base fontsize for rem and typography settings */
 html {
   font-size: 16px;
-  font-family: 'Helvetica Neue', arial, helvetica, verdana, sans;
+  font-family: 'titillium-bold', arial, helvetica, verdana, sans;
   letter-spacing: 0.01em;
   word-spacing: 0.2em;
 }
