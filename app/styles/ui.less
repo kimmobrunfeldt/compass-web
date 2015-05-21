@@ -8,6 +8,7 @@ body, html, .container {
 
 .container {
   background: @grey;
+  overflow: hidden;
 }
 
 .speedometer-container {
@@ -29,6 +30,24 @@ body, html, .container {
       font-size: @font-size-x-large;
       font-weight: 700;
     }
+  }
+}
+
+.compass-container {
+  padding-top: 10px;
+  position: relative;
+  width: 80%;
+  max-width: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .compass, .needle {
+    position: absolute;
+    width: 100%;
+  }
+
+  .needle {
+    transition: transform 0.05s ease;
   }
 }
 

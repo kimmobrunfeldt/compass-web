@@ -1,10 +1,25 @@
 // Utility functions
 
+var PREFIXES = 'Webkit Moz O ms'.split(' ');
+
 // How much x is 1 m/s?
 var SPEED_FACTORS = {
     'km/h': 3.6,
     'mph': 2.23693629
 };
+
+function setStyle(element, style, value) {
+    for (var i = 0; i < PREFIXES.length; ++i) {
+        var prefix = PREFIXES[i];
+        element.style[prefix + capitalize(style)] = value;
+    }
+
+    element.style[style] = value;
+}
+
+function capitalize(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
 
 function removeClass(element, className) {
     var classes = element.className.split(' ');
@@ -51,6 +66,7 @@ function convertSpeed(speed, newUnit) {
 }
 
 module.exports = {
+    setStyle: setStyle,
     removeClass: removeClass,
     addClass: addClass,
     hasClass: hasClass,

@@ -1,33 +1,40 @@
+var _ = require('lodash');
 var ProgressBar = require('progressbar.js');
 var GeoWatch = require('./geowatch');
 var utils = require('./utils');
+var raf = require('raf');
 var config = require('./config');
+var gyro = require('./gyro');
 
 function main() {
-    var progressBar = new ProgressBar.Circle('#speedometer', {
-        color: config.colors.blue,
-        strokeWidth: 6,
-        trailColor: '#888',
-        trailWidth: 0.5,
-        duration: 400,
-        step: function(state, bar) {
-            var speed = bar.value() * config.maxSpeed.value;
-            bar.setText(speed.toFixed(0) + ' ' + config.displayUnit);
+    var needle = document.querySelector('#needle');
+
+    // Keep rotation state to avoid needle jumping
+    var lastRotation = 0;
+    gyro.startTracking(function(o) {
+        // o.x, o.y, o.z for accelerometer
+        // o.alpha, o.beta, o.gamma for gyro
+        var heading = o.alpha;
+        if (heading != null) {
+            var compassRotation = heading + config.needleHeadingAddition;
+            var rotationDiff = shortestRotation(lastRotation, compassRotation);
+            var newRotation = lastRotation + rotationDiff;
+
+            utils.setStyle(needle, 'transform', 'rotate(' + newRotation  + 'deg)');
+            lastRotation = newRotation;
         }
     });
-    progressBar.setText('-');
+}
 
-    showLoader();
-    var geoWatch = new GeoWatch({
-        onGeoData: function(geoData) {
-            if (geoData.coords.speed !== null) {
-                hideLoader();
-            }
+function shortestRotation(fromDegrees, toDegrees) {
+    var degrees = toDegrees - fromDegrees;
+    var normalizedDegrees = degrees % 360;
 
-            var speed = {value: geoData.coords.speed, unit: 'm/s'};
-            updateSpeed(progressBar, speed);
-        }
-    });
+    if (normalizedDegrees > 180) {
+        return normalizedDegrees - 360;
+    } else {
+        return normalizedDegrees;
+    }
 }
 
 function updateSpeed(progressBar, speed) {

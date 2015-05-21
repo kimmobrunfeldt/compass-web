@@ -10,7 +10,10 @@ var config = {
     },
 
     maxSpeed: {value: 160, unit: 'km/h'},
-    displayUnit: 'km/h'
+    displayUnit: 'km/h',
+
+    // Addition in degrees to needle heading
+    needleHeadingAddition: -45
 };
 
 module.exports = config;

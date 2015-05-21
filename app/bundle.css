@@ -148,6 +148,7 @@ html,
 }
 .container {
   background: #4d5152;
+  overflow: hidden;
 }
 .speedometer-container {
   padding-top: 10px;
@@ -168,6 +169,25 @@ html,
 .speedometer-container .speedometer .progressbar-text {
   font-size: 1.999rem;
   font-weight: 700;
+}
+.compass-container {
+  padding-top: 10px;
+  position: relative;
+  width: 80%;
+  max-width: 400px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.compass-container .compass,
+.compass-container .needle {
+  position: absolute;
+  width: 100%;
+}
+.compass-container .needle {
+  -webkit-transition: -webkit-transform 0.05s ease;
+          transition: transform 0.05s ease;
 }
 .loader {
   position: absolute;
