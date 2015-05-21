@@ -1,6 +1,6 @@
-# GPS Speedometer for web
+# Compass for web
 
-Real speedometer using geolocation API,
+Real compass using possibly available compass heading data.
 
 # Developer documentation
 

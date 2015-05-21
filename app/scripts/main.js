@@ -1,9 +1,6 @@
 var _ = require('lodash');
-var ProgressBar = require('progressbar.js');
-var GeoWatch = require('./geowatch');
 var utils = require('./utils');
 var raf = require('raf');
-var config = require('./config');
 var Compass = require('./compass');
 
 // Number from 0 to 1
@@ -53,20 +50,6 @@ function shortestRotation(fromDegrees, toDegrees) {
     } else {
         return normalizedDegrees;
     }
-}
-
-function updateSpeed(progressBar, speed) {
-    if (speed.value === null) {
-        progressBar.setText('-');
-        return;
-    }
-
-    var displaySpeed = utils.convertSpeed(speed, config.displayUnit);
-
-    var speedInMaxSpeedUnit = utils.convertSpeed(speed, config.maxSpeed.unit);
-    var value = speedInMaxSpeedUnit.value / config.maxSpeed.value;
-    console.log(speed);
-    progressBar.animate(value);
 }
 
 function showLoader() {
