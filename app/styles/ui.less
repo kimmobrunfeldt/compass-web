@@ -7,30 +7,16 @@ body, html, .container {
 }
 
 .container {
-  background: @grey;
+  background: lighten(@grey, 10%);
   overflow: hidden;
 }
 
-.speedometer-container {
-  padding-top: 10px;
-  position: relative;
-  width: 80%;
-  max-width: 400px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  .speedometer {
-    height: 100%;
-
-    svg {
-      height: 100%;
-    }
-
-    .progressbar-text {
-      font-size: @font-size-x-large;
-      font-weight: 700;
-    }
-  }
+.heading-text {
+  margin-top: 55px;
+  padding-left: 12px;
+  text-align: center;
+  color: white;
+  font-size: 2.4rem;
 }
 
 .compass-container {
@@ -44,10 +30,6 @@ body, html, .container {
   .compass, .needle {
     position: absolute;
     width: 100%;
-  }
-
-  .needle {
-    transition: transform 0.05s ease;
   }
 }
 

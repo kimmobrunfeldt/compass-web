@@ -95,17 +95,10 @@ table {
 Font sizes from type-scale.com
 Scale: 1.414, Augmented Fourth
 */
-@font-face {
-  font-family: 'titillium-bold';
-  src: url('fonts/titilliumweb-bold-webfont.eot');
-  src: url('fonts/titilliumweb-bold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/titilliumweb-bold-webfont.woff2') format('woff2'), url('fonts/titilliumweb-bold-webfont.woff') format('woff'), url('fonts/titilliumweb-bold-webfont.ttf') format('truetype'), url('fonts/titilliumweb-bold-webfont.svg#titillium_webbold') format('svg');
-  font-weight: 700;
-  font-style: normal;
-}
 /* Setup base fontsize for rem and typography settings */
 html {
   font-size: 16px;
-  font-family: 'titillium-bold', arial, helvetica, verdana, sans;
+  font-family: 'Roboto', arial, helvetica, verdana, sans;
   letter-spacing: 0.01em;
   word-spacing: 0.2em;
 }
@@ -147,28 +140,15 @@ html,
   min-height: 100vh;
 }
 .container {
-  background: #4d5152;
+  background: #666b6c;
   overflow: hidden;
 }
-.speedometer-container {
-  padding-top: 10px;
-  position: relative;
-  width: 80%;
-  max-width: 400px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-}
-.speedometer-container .speedometer {
-  height: 100%;
-}
-.speedometer-container .speedometer svg {
-  height: 100%;
-}
-.speedometer-container .speedometer .progressbar-text {
-  font-size: 1.999rem;
-  font-weight: 700;
+.heading-text {
+  margin-top: 55px;
+  padding-left: 12px;
+  text-align: center;
+  color: white;
+  font-size: 2.4rem;
 }
 .compass-container {
   padding-top: 10px;
@@ -184,10 +164,6 @@ html,
 .compass-container .needle {
   position: absolute;
   width: 100%;
-}
-.compass-container .needle {
-  -webkit-transition: -webkit-transform 0.05s ease;
-          transition: transform 0.05s ease;
 }
 .loader {
   position: absolute;

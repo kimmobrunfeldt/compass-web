@@ -4,25 +4,43 @@ var GeoWatch = require('./geowatch');
 var utils = require('./utils');
 var raf = require('raf');
 var config = require('./config');
-var gyro = require('./gyro');
+var Compass = require('./compass');
+
+// Number from 0 to 1
+var NEEDLE_SLOWNESS = 0.1;
 
 function main() {
-    var needle = document.querySelector('#needle');
+    var directions = document.querySelector('#directions');
+    var headingElem = document.querySelector('#heading');
 
-    // Keep rotation state to avoid needle jumping
-    var lastRotation = 0;
-    gyro.startTracking(function(o) {
-        // o.x, o.y, o.z for accelerometer
-        // o.alpha, o.beta, o.gamma for gyro
-        var heading = o.alpha;
+    var targetRotation = 0;
+    Compass.watch(function(heading) {
         if (heading != null) {
-            var compassRotation = heading + config.needleHeadingAddition;
-            var rotationDiff = shortestRotation(lastRotation, compassRotation);
-            var newRotation = lastRotation + rotationDiff;
-
-            utils.setStyle(needle, 'transform', 'rotate(' + newRotation  + 'deg)');
-            lastRotation = newRotation;
+            // Invert the rotation since we are rotating the
+            // direction panel
+            targetRotation = 360 - heading;
         }
+    });
+
+    Compass.init(function(cb) {
+        if (cb === false) {
+            headingElem.innerHTML = 'No compass'
+            return;
+        }
+
+        // Separate animation to animation frame
+        var rotation = 0;
+        raf(function tick() {
+            var rotationDiff = NEEDLE_SLOWNESS * shortestRotation(rotation, targetRotation);
+            rotation += rotationDiff;
+
+            utils.setStyle(directions, 'transform', 'rotate(' + rotation + 'deg)');
+
+            var heading = 360 - targetRotation;
+            if (heading > 359.5) heading = 0;
+            headingElem.innerHTML = heading.toFixed(0) + '°';
+            raf(tick);
+        });
     });
 }
 
