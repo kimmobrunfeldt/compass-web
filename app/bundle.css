@@ -162,8 +162,8 @@ html,
 }
 .compass-container .compass,
 .compass-container .needle {
-  position: absolute;
   width: 100%;
+  position: absolute;
 }
 .loader {
   position: absolute;

@@ -11,7 +11,7 @@ var SPEED_FACTORS = {
 function setStyle(element, style, value) {
     for (var i = 0; i < PREFIXES.length; ++i) {
         var prefix = PREFIXES[i];
-        element.style[prefix + capitalize(style)] = value;
+        element.style[prefix + style] = value;
     }
 
     element.style[style] = value;

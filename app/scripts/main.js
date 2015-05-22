@@ -4,7 +4,7 @@ var raf = require('raf');
 var Compass = require('./compass');
 
 // Number from 0 to 1
-var NEEDLE_SLOWNESS = 0.1;
+var NEEDLE_SLOWNESS = 0.09;
 
 function main() {
     var directions = document.querySelector('#directions');
@@ -20,9 +20,18 @@ function main() {
     });
 
     Compass.init(function(cb) {
-        if (cb === false) {
-            headingElem.innerHTML = 'No compass'
-            return;
+        var compassSupported = cb !== false;
+
+        if (!compassSupported) {
+            headingElem.textContent = 'No compass'
+
+            setInterval(function setTarget() {
+                if (targetRotation > 0) {
+                    targetRotation = -20;
+                } else {
+                    targetRotation = 20;
+                }
+            }, 1200)
         }
 
         // Separate animation to animation frame
@@ -31,11 +40,13 @@ function main() {
             var rotationDiff = NEEDLE_SLOWNESS * shortestRotation(rotation, targetRotation);
             rotation += rotationDiff;
 
-            utils.setStyle(directions, 'transform', 'rotate(' + rotation + 'deg)');
+            utils.setStyle(directions, 'Transform', 'rotate(' + rotation + 'deg)');
 
-            var heading = 360 - targetRotation;
-            if (heading > 359.5) heading = 0;
-            headingElem.innerHTML = heading.toFixed(0) + '°';
+            if (compassSupported) {
+                var heading = 360 - targetRotation;
+                if (heading > 359.5) heading = 0;
+                headingElem.textContent = heading.toFixed(0) + '°';
+            }
             raf(tick);
         });
     });
